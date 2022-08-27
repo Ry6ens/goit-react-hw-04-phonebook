@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import PhonebookOptions from "../PhonebookOptions/PhonebookOptions";
 
-const ContactList = ({ items, removeItem }) => {
+const ContactList = ({ items = [], removeItem }) => {
   return (
     <>
       <ul>

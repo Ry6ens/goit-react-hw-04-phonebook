@@ -2,11 +2,12 @@ import styles from "./ContactForm.module.scss";
 import stylesButton from "../PhonebookOptions/PhonebookOptions.module.scss";
 
 import { useState } from "react";
-import PhonebookOptions from "../PhonebookOptions/PhonebookOptions";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 
-export default function Form() {
+import PhonebookOptions from "../PhonebookOptions/PhonebookOptions";
+
+export default function Form({ onSubmit }) {
   const [state, setState] = useState({
     name: "",
     number: "",
@@ -18,16 +19,14 @@ export default function Form() {
   const numberId = nanoid();
 
   const handleSubmit = (e) => {
-    console.log(e);
     e.preventDefault();
-    // onSubmit(() => ({ ...state }));
-    e.reset();
-    // reset(
-    //   setState({
-    //     name: "",
-    //     number: "",
-    //   })
-    // );
+    onSubmit({ ...state });
+    e.target.reset(
+      setState({
+        name: "",
+        number: "",
+      })
+    );
   };
 
   const handleChange = ({ target }) => {
@@ -35,7 +34,6 @@ export default function Form() {
       return { ...prevState, [target.name]: target.value };
     });
   };
-
   return (
     <form onSubmit={handleSubmit} className={styles.formGroup}>
       <div className={styles.thumb}>
@@ -74,6 +72,10 @@ export default function Form() {
     </form>
   );
 }
+
+Form.defaultProps = {
+  onSubmit: () => {},
+};
 
 Form.propTypes = {
   onSubmit: PropTypes.func,
