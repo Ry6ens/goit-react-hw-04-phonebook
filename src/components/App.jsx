@@ -37,9 +37,6 @@ export default function App() {
   };
 
   const getFilterItems = () => {
-    console.log(filter);
-    console.log(contacts);
-
     if (!filter) {
       return contacts;
     }
